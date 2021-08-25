@@ -1,3 +1,6 @@
+# datasets
+pdf_files/
+Datasets/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
