@@ -2,7 +2,6 @@
 
 # where main code will go
 
-from nltk.corpus import stopwords
 import nltk
 from nltk.corpus import stopwords
 import nltk
@@ -12,17 +11,8 @@ import spacy
 import re
 from string import ascii_lowercase as alphabet
 from transformers import pipeline
+from tqdm import tqdm
 
-nltk.download('stopwords')
-
-german_stopwords = stopwords.words('german')
-#speech_content = df_speeches[['speechContent']]
-
-
-#setting up stopwords
-nltk.download('stopwords')
-german_stopwords = stopwords.words('german')
-#model_de = spacy.load('de_core_news_sm')
 
 
 
@@ -127,8 +117,13 @@ def split_to_sentance(max_sentance_length, text):
 
 
 #setting up stopwords
-nltk.download('stopwords')
+#nltk.download('stopwords')
+model_de = spacy.load('de_core_news_sm')
 german_stopwords = stopwords.words('german')
 german_stopwords_wo_umlaut = []
 for word in german_stopwords:
   german_stopwords_wo_umlaut.append(remove_umlauts(word))
+
+
+#speech_content = df_speeches[['speechContent']]
+
