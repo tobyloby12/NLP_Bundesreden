@@ -80,9 +80,9 @@ def summarisation(filename, input_text, total_length, MIN_length = 1, MAX_length
   file.write('')
   i = 0
   total = total_length
-  for paragraph in input_text:
+  for paragraph in tqdm(input_text):
     to_tokenize = paragraph
-    print(i/total * 100)
+    #print(i/total * 100)
 
     # Initialize the HuggingFace summarization pipeline
     summarizer = pipeline("summarization")
