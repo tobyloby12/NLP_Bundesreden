@@ -6,6 +6,7 @@ Seeing how using NLP, potential projects for PD could be determined from Bundesr
 ### pdf_file_extraction.py
 
 download_pdf(pdf_url, filename) - 
+
 convert_text_to_pdf(filename) - 
 
 ### keyword_extraction.py
@@ -14,4 +15,18 @@ keyword_extraction(text, length) - this function takes in a text document and us
 
 mmr(doc_embedding, word_embeddings, words, top_n, diversity - this function uses keyword extraction and uses the cosine similarity to find how close together candidate keywords are to eachother so that the chosen keywords will be as diverse as possible. It takes in 4 terms which are the document embedding, word_embeddings which can be the candidate embeddings, words which are the candidate words, top_n which is the number of keyword phrases, diversity which is how dissimilar the words should be from eachother. It returns a set of keywords.
 
-### 
+### summarisation_bert.py
+
+remove_ulauts(word)
+
+remove_currency(word)
+
+lemmatizer(text)
+
+data_cleaning(input_text)
+
+summarisation(filename, input_text, total_length, MIN_length = 1, MAX_length = 300)
+
+split_to_sentance(max_sentance_length, text)
+
+### visualisations.py
