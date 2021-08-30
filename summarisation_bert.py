@@ -101,6 +101,7 @@ def split_to_sentance(max_sentance_length, text):
   split_text = re.split(f'[{punctuation}\n]', text)
   split_text = [sentance.strip() for sentance in split_text]
   [split_text.remove(sentance) for sentance in split_text if sentance in ['','f{punctuation}']]
+  split_text = [remove_umlauts(word) for word in split_text]
   
   
   

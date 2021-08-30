@@ -26,4 +26,5 @@ filename = 'pdf_files/testfile'
 
 text = convert_pdf_to_text(filename)
 text_split = split_to_sentance(300, text)
-summarisation('coalition_summary.txt', text_split, len(text.split()), 1, 15)
+
+summarisation('coalition_summary.txt', text_split, len(text.split()), 1, 30)
