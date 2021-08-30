@@ -18,32 +18,33 @@ for word in german_stopwords:
 
 pdf_url = 'https://dip21.bundestag.de/dip21/btp/15/15014.pdf'
 filename = 'pdf_files/testfile'
-
 #download_pdf(pdf_url, filename)
 text = convert_pdf_to_text(filename)
 
-cleaned_text = data_cleaning(text)
+def keyword_extraction(text):
 
-with_cleaning_chain = ''
-for word in cleaned_text:
-  with_cleaning_chain += word + ' '
+  cleaned_text = data_cleaning(text)
 
-n_gram_range = (1, 1)
+  with_cleaning_chain = ''
+  for word in cleaned_text:
+    with_cleaning_chain += word + ' '
 
-# Extract candidate words/phrases
-count = CountVectorizer(ngram_range=n_gram_range, stop_words=german_stopwords_wo_umlaut).fit([with_cleaning_chain])
-candidates = count.get_feature_names()
+  n_gram_range = (1, 1)
 
-model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-doc_embedding = model.encode([with_cleaning_chain])
-candidate_embeddings = model.encode(candidates)  
+  # Extract candidate words/phrases
+  count = CountVectorizer(ngram_range=n_gram_range, stop_words=german_stopwords_wo_umlaut).fit([with_cleaning_chain])
+  candidates = count.get_feature_names()
+
+  model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+  doc_embedding = model.encode([with_cleaning_chain])
+  candidate_embeddings = model.encode(candidates)  
 
 
-top_n = 5
-distances = cosine_similarity(doc_embedding, candidate_embeddings)
-keywords = [candidates[index] for index in distances.argsort()[0][-top_n:]]
+  top_n = 5
+  distances = cosine_similarity(doc_embedding, candidate_embeddings)
+  keywords = [candidates[index] for index in distances.argsort()[0][-top_n:]]
 
-print(keywords)
+  return keywords, doc_embedding, candidate_embeddings, candidates
 
 import numpy as np
 
@@ -73,6 +74,8 @@ def mmr(doc_embedding, word_embeddings, words, top_n, diversity):
 
     return [words[idx] for idx in keywords_idx]
 
+# using the functions
+keywords, doc_embedding, candidate_embeddings, candidates = keyword_extraction(text)
 keywords2 = mmr(doc_embedding, candidate_embeddings, candidates, top_n=5, diversity=0.2)
 
 print(keywords2)
