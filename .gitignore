@@ -1,9 +1,7 @@
 # datasets
 pdf_files/
 Datasets/
-
-# text files
-*.txt
+text_files/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
