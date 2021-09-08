@@ -16,26 +16,25 @@ for word in german_stopwords:
   german_stopwords_wo_umlaut.append(remove_umlauts(word))
 
 
-pdf_url = 'https://dip21.bundestag.de/dip21/btp/15/15014.pdf'
-filename = 'pdf_files/testfile'
-#download_pdf(pdf_url, filename)
-text = convert_pdf_to_text(filename)
+# pdf_url = 'https://dip21.bundestag.de/dip21/btp/15/15014.pdf'
+# filename = 'pdf_files/testfile'
+# #download_pdf(pdf_url, filename)
+# text = convert_pdf_to_text(filename)
 
-def keyword_extraction(text):
+def keyword_extraction(text, length):
 
   cleaned_text = data_cleaning(text)
 
   with_cleaning_chain = ''
   for word in cleaned_text:
     with_cleaning_chain += word + ' '
-
-  n_gram_range = (1, 1)
+  n_gram_range = (length, length)
 
   # Extract candidate words/phrases
   count = CountVectorizer(ngram_range=n_gram_range, stop_words=german_stopwords_wo_umlaut).fit([with_cleaning_chain])
   candidates = count.get_feature_names()
 
-  model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+  model = SentenceTransformer('msmarco-distilbert-multilingual-en-de-v2-tmp-trained-scratch')
   doc_embedding = model.encode([with_cleaning_chain])
   candidate_embeddings = model.encode(candidates)  
 
@@ -74,8 +73,9 @@ def mmr(doc_embedding, word_embeddings, words, top_n, diversity):
 
     return [words[idx] for idx in keywords_idx]
 
-# using the functions
-keywords, doc_embedding, candidate_embeddings, candidates = keyword_extraction(text)
-keywords2 = mmr(doc_embedding, candidate_embeddings, candidates, top_n=5, diversity=0.2)
+# # using the functions
+# keywords, doc_embedding, candidate_embeddings, candidates = keyword_extraction(text, 10)
+# keywords2 = mmr(doc_embedding, candidate_embeddings, candidates, top_n=5, diversity=0.2)
 
-print(keywords2)
+# print(keywords)
+# print(keywords2)

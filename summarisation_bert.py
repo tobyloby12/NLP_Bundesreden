@@ -76,7 +76,7 @@ def data_cleaning(input_text):
 #summarisation hugging face transformers functions
 
 def summarisation(filename, input_text, total_length, MIN_length = 1, MAX_length = 300):
-  file = open(filename, 'w')
+  file = open(filename, 'w', encoding="utf-8")
   file.write('')
   i = 0
   total = total_length
@@ -87,7 +87,7 @@ def summarisation(filename, input_text, total_length, MIN_length = 1, MAX_length
     # Initialize the HuggingFace summarization pipeline
     summarizer = pipeline("summarization")
     summarized = summarizer(to_tokenize, min_length=MIN_length, max_length=MAX_length)
-    file = open(filename, 'a')
+    file = open(filename, 'a', encoding="utf-8")
     file.write(summarized[0]['summary_text'] + '\n')
     i = i + len(paragraph.split())
 
