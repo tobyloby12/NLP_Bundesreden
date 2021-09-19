@@ -1,3 +1,7 @@
+# Using Natural Language Processing Techniques to Analyse the Bundestagsreden in Combination with PD Projects
+
+During my 6 week internship at PD, I was tasked with predicting potential projects for PD (a public consultancy working with the German government) using the Bundestagsreden. To begin with some data inspection was done and after this, it was clear that unsupervised learning techniques should be used. This involved text summarisation and keyword extraction. Once these were complete some visualisations were created to visualise the data and how PD fits into it all.
+
 ## Explaination of different functions and how to use them based on each file:
 
 ### pdf_file_extraction.py
